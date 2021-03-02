@@ -1,4 +1,4 @@
-Note: Forked from https://github.com/raptor-group/keycloak-login-recaptcha
+Note: Forked from https://github.com/raptor-group/keycloak-login-recaptcha - fixes https://superawesomeltd.atlassian.net/browse/COS-2881 
 __________________________________________________________________________
 
 # keycloak-login-recaptcha

@@ -1,6 +1,9 @@
+Note: Forked from https://github.com/raptor-group/keycloak-login-recaptcha
+__________________________________________________________________________
+
 # keycloak-login-recaptcha
 
-By default Keycloak (up to 8.0.2) only supports ReCaptcha for Regsitration, not login. so we created a simple module for activating recaptcha for login
+By default Keycloak (up to 11.0.2) only supports ReCaptcha for Registration, not login. so we created a simple module for activating recaptcha for login
 
 #		How to use
 for building you need to run `mvn clean install`.  it will produce a jar `target/recaptcha-login.jar`.
@@ -11,7 +14,7 @@ for example in my docker compose file:
 ```
 ...
 keycloak:
-	image: jboss/keycloak:8.0.2
+	image: jboss/keycloak:11.0.2
 	.
 	.
 	.
@@ -24,12 +27,12 @@ keycloak:
 and in your theme file you should add this piece of code in your `login.ftl` template file:
 ```
 <#if recaptchaRequired??>
-<div class="form-group">
-	<div class="${properties.kcInputWrapperClass!}">
-		<div class="g-recaptcha" data-size="compact" data-sitekey="${recaptchaSiteKey}">			
-		</div>
-	</div>
-</div>
+    <div class="form-group">
+        <div class="${properties.kcInputWrapperClass!}">
+            <div class="g-recaptcha" data-size="compact" data-sitekey="${recaptchaSiteKey}">			
+            </div>
+        </div>
+    </div>
 </#if>
 ```
 you should past it inside your login `<form></form>` in your login template (`login.ftl`)

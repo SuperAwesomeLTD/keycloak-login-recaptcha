@@ -36,10 +36,15 @@ public class RecaptchaUsernamePasswordForm extends UsernamePasswordForm implemen
 	private static final Logger logger = Logger.getLogger(RecaptchaUsernamePasswordFormFactory.class);
 	private String siteKey;
 
-	@Override
-	protected Response createLoginForm( LoginFormsProvider form ) {
+	protected void enableRecaptcha(LoginFormsProvider form, String userLanguageTag) {
 		form.setAttribute("recaptchaRequired", true);
 		form.setAttribute("recaptchaSiteKey", siteKey);
+		form.addScript("https://www.google.com/recaptcha/api.js?hl=" + userLanguageTag);
+	}
+
+	@Override
+	protected Response createLoginForm( LoginFormsProvider form ) {
+		this.enableRecaptcha(form, "en"); //@todo: un-hard-code "en"
 		return super.createLoginForm( form );
 	}
 
@@ -62,9 +67,7 @@ public class RecaptchaUsernamePasswordForm extends UsernamePasswordForm implemen
 			return;
 		}
 		siteKey = captchaConfig.getConfig().get(SITE_KEY);
-		form.setAttribute("recaptchaRequired", true);
-		form.setAttribute("recaptchaSiteKey", siteKey);
-		form.addScript("https://www.google.com/recaptcha/api.js?hl=" + userLanguageTag);
+		this.enableRecaptcha(form, userLanguageTag);
 
 		super.authenticate(context);
 	}
